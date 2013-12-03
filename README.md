@@ -17,3 +17,7 @@ really appreciate more eyes on this code.
 [1]: http://www.opine.me/a-better-way-to-store-password-hashes/ "A Better Way to Store Password Hashes"
 [2]: http://www.opine.me/all-your-hashes-arent-belong-to-us/ "Concluding: A Better Way to Store Password Hashes"
 [3]: https://github.com/flynn/go-discover "flynn/go-discover"
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/BrianHicks/sesame/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
