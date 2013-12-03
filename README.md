@@ -1,5 +1,7 @@
 # Sesame
 
+[![Build Status](https://travis-ci.org/BrianHicks/sesame.png?branch=master)](https://travis-ci.org/BrianHicks/sesame)
+
 A Go library for implementing the distributed password storage technique
 described in [A Better Way to Store Password Hashes][1] ([Part 2][2])
 
