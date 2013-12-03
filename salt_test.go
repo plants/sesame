@@ -7,8 +7,8 @@ import (
 )
 
 func TestNewSalt(t *testing.T) {
-	salt, err := NewSalt(40)
+	salt, err := NewSalt(20)
 
 	assert.Nil(t, err)
-	assert.Equal(t, len(salt), 40)
+	assert.Equal(t, len(salt), 20)
 }
