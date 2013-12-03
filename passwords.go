@@ -1,4 +1,4 @@
-package auth
+package sesame
 
 import "code.google.com/p/go.crypto/bcrypt"
 

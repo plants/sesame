@@ -1,4 +1,4 @@
-package auth
+package sesame
 
 import (
 	"github.com/stretchr/testify/assert"
