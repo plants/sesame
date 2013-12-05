@@ -1,6 +1,6 @@
 # Sesame
 
-[![Build Status](https://travis-ci.org/BrianHicks/sesame.png?branch=master)](https://travis-ci.org/BrianHicks/sesame)
+[![Build Status](https://travis-ci.org/plants/sesame.png?branch=master)](https://travis-ci.org/plants/sesame)
 
 A Go library for implementing the distributed password storage technique
 described in [A Better Way to Store Password Hashes][1] ([Part 2][2])
@@ -19,5 +19,5 @@ really appreciate more eyes on this code.
 [3]: https://github.com/flynn/go-discover "flynn/go-discover"
 
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/BrianHicks/sesame/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/plants/sesame/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
