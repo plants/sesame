@@ -14,4 +14,4 @@ really appreciate more eyes on this code.
 
 [go-discover]: https://github.com/flynn/go-discover "flynn/go-discover"
 
-[![Bitdeli Badge](https://d2weczhvl82[go-discover]v0.cloudfront.net/BrianHicks/sesame/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/plants/sesame/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
