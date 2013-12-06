@@ -15,3 +15,9 @@ really appreciate more eyes on this code.
 [go-discover]: https://github.com/flynn/go-discover "flynn/go-discover"
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/plants/sesame/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
+## Releases
+
+There aren't any releases yet. When there are, they'll be tagged in the
+"master" branch. But the master branch will always have the stable version of
+the code, and the develop branch will always have the bleeding edge.
