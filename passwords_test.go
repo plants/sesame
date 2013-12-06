@@ -10,7 +10,18 @@ func TestNewPassword(t *testing.T) {
 	pass, err := NewPassword(Salt("salt"), []byte("password"))
 
 	assert.Nil(t, err)
-	assert.Equal(t, len(pass), 60)
+	assert.Equal(t, len(pass), 64)
+}
+
+func TestRepeatability(t *testing.T) {
+	salt := Salt("salt")
+
+	a, err := NewPassword(salt, []byte("password"))
+	assert.Nil(t, err)
+	b, err := NewPassword(salt, []byte("password"))
+	assert.Nil(t, err)
+
+	assert.Equal(t, a, b)
 }
 
 func TestClear(t *testing.T) {
