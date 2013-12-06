@@ -1,6 +1,6 @@
 # Sesame
 
-[![Build Status](https://travis-ci.org/BrianHicks/sesame.png?branch=develop)](https://travis-ci.org/BrianHicks/sesame)
+[![Build Status](https://travis-ci.org/plants/sesame.png?branch=develop)](https://travis-ci.org/plants/sesame)
 
 A Go library for implementing user storage over the network.
 
