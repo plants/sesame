@@ -19,8 +19,8 @@ type InMemoryStore struct {
 	Users map[string]*User
 }
 
-func NewInMemoryStore() *InMemoryStore {
-	return &InMemoryStore{Users: make(map[string]*User)}
+func NewInMemoryStore() (*InMemoryStore, error) {
+	return &InMemoryStore{Users: make(map[string]*User)}, nil
 }
 
 func (store *InMemoryStore) GetByEmail(email string) (u *User, err error) {

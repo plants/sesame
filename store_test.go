@@ -9,7 +9,7 @@ import (
 )
 
 func TestInMemoryStore(t *testing.T) {
-	store := NewInMemoryStore()
+	store, _ := NewInMemoryStore()
 	user := User{Email: "test@example.com", Password: []byte("test"), Salt: []byte("salt")}
 
 	// GetByEmail without a user
