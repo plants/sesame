@@ -1,8 +1,11 @@
 package main
 
 import (
+	"bufio"
+	"bytes"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
+	"log"
 
 	"os"
 	"testing"
@@ -10,11 +13,20 @@ import (
 
 type SetConfigSuite struct {
 	suite.Suite
+	logs *bytes.Buffer
 }
 
 func (suite *SetConfigSuite) SetupTest() {
 	os.Clearenv()
 	config = SesamedConfig{}
+
+	suite.logs = new(bytes.Buffer)
+	writer := bufio.NewWriter(suite.logs)
+	log.SetOutput(writer)
+}
+
+func (suite *SetConfigSuite) TearDownTest() {
+	log.SetOutput(os.Stdout)
 }
 
 func (suite *SetConfigSuite) TestDebug() {
@@ -37,17 +49,6 @@ func (suite *SetConfigSuite) TestPort() {
 	os.Setenv("SESAMED_PORT", "8080")
 	parseConfig()
 	assert.Equal(suite.T(), config.Port, 8080)
-}
-
-func (suite *SetConfigSuite) TestStorageType() {
-	// default
-	parseConfig()
-	assert.Equal(suite.T(), config.StorageType, "memory")
-
-	// non-default
-	os.Setenv("SESAMED_STORAGETYPE", "rethinkdb")
-	parseConfig()
-	assert.Equal(suite.T(), config.StorageType, "rethinkdb")
 }
 
 func TestSetConfigSuite(t *testing.T) {

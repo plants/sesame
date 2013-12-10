@@ -8,10 +8,9 @@ import (
 )
 
 type SesamedConfig struct {
-	Debug       bool
-	Port        int
-	StorageType string
-	Storage     sesame.UserStore
+	Debug   bool
+	Port    int
+	Storage sesame.UserStore
 }
 
 var config SesamedConfig
@@ -26,11 +25,16 @@ func parseConfig() {
 	if config.Port == 0 {
 		config.Port = 2884
 	}
-	if config.StorageType == "" {
-		config.StorageType = "memory"
-	}
 
-	config.Storage, err = sesame.NewInMemoryStore()
+	if config.Debug {
+		log.Print("Debug is on, using InMemoryUserStore")
+		config.Storage, err = sesame.NewInMemoryStore()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+	// TODO: implement a storage backend if Debug is off
+
 	if err != nil {
 		log.Fatal(err)
 	}
