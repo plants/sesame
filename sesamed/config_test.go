@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"github.com/plants/sesame"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 	"log"
@@ -49,6 +50,23 @@ func (suite *SetConfigSuite) TestPort() {
 	os.Setenv("SESAMED_PORT", "8080")
 	parseConfig()
 	assert.Equal(suite.T(), config.Port, 8080)
+}
+
+func (suite *SetConfigSuite) TestStorageURL() {
+	// default
+	os.Setenv("SESAMED_STORAGEURL", "memory://")
+	parseConfig()
+
+	mem, _ := sesame.NewInMemoryStore()
+	assert.Equal(suite.T(), config.Storage, mem)
+
+	// unhandled URL
+	os.Setenv("SESAMED_STORAGEURL", "unhandled://")
+	defer func() {
+		r := recover()
+		assert.Equal(suite.T(), r, "I do not know how to connect to \"unhandled\"")
+	}()
+	parseConfig()
 }
 
 func TestSetConfigSuite(t *testing.T) {
