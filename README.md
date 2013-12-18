@@ -1,6 +1,6 @@
 # Sesame
 
-[![Build Status](https://travis-ci.org/plants/sesame.png?branch=develop)](https://travis-ci.org/plants/sesame)
+[![Build Status](https://travis-ci.org/plants/sesame.png?branch=master)](https://travis-ci.org/plants/sesame)
 
 A Go library for implementing user storage over the network.
 
@@ -18,6 +18,6 @@ really appreciate more eyes on this code.
 
 ## Releases
 
-There aren't any releases yet. When there are, they'll be tagged in the
-"master" branch. But the master branch will always have the stable version of
-the code, and the develop branch will always have the bleeding edge.
+ - 0.1.0: Basic email/password and persistence with RethinkDB
+
+Track "develop" for bleeding edge releases, which will probably break things.
