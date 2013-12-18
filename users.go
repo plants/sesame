@@ -9,9 +9,10 @@ import (
 // A User combines Password and Salt into an interface to validate plaintext
 // against.
 type User struct {
-	Email    string   `gorethink:"email"`
-	Password Password `gorethink:"password"`
-	Salt     Salt     `gorethink:"salt"`
+	Id       interface{} `gorethink:"id"`
+	Email    string      `gorethink:"email"`
+	Password Password    `gorethink:"password"`
+	Salt     Salt        `gorethink:"salt"`
 
 	Created time.Time `gorethink:"created"`
 	Updated time.Time `gorethink:"updated"`

@@ -5,6 +5,7 @@ import (
 	r "github.com/dancannon/gorethink"
 	"github.com/kelseyhightower/envconfig"
 	"strings"
+	"time"
 
 	"net/url"
 )
@@ -80,4 +81,20 @@ func (store *UserStore) Get(email string) (*User, error) {
 	row.Scan(&u)
 
 	return u, nil
+}
+
+// Save takes a *User and saves it to RethinkDB. It updates User.Updated, as well.
+func (store *UserStore) Save(user *User) error {
+	user.Updated = time.Now()
+
+	response, err := store.table.Insert(user, r.InsertOpts{Upsert: true}).RunWrite(store.conn)
+	if err != nil {
+		return err
+	}
+
+	if response.Inserted == 1 && len(response.GeneratedKeys) > 0 {
+		user.Id = response.GeneratedKeys[0]
+	}
+
+	return nil
 }

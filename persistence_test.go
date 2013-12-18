@@ -85,6 +85,28 @@ func (suite *UserStoreSuite) TestGetInvalidUser() {
 	assert.Equal(suite.T(), errors.New("could not find a user with email \"bad@example.com\""), err)
 }
 
+func (suite *UserStoreSuite) TestSaveInsert() {
+	u := NewUser("insert@example.com", "password")
+	err := suite.store.Save(u)
+
+	assert.Nil(suite.T(), err)
+	assert.NotEqual(suite.T(), u.Created, u.Updated)
+	assert.NotEqual(suite.T(), new(interface{}), suite.user.Id)
+}
+
+func (suite *UserStoreSuite) TestSaveUpdate() {
+	u := NewUser("update@example.com", "password")
+	u.Id = "some-id"
+
+	err := suite.store.Save(u)
+	assert.Nil(suite.T(), err)
+	assert.Equal(suite.T(), "some-id", u.Id)
+
+	err = suite.store.Save(u)
+	assert.Nil(suite.T(), err)
+	assert.Equal(suite.T(), "some-id", u.Id)
+}
+
 func TestUserStoreSuite(t *testing.T) {
 	suite.Run(t, new(UserStoreSuite))
 }
