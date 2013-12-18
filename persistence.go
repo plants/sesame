@@ -1,6 +1,7 @@
 package sesame
 
 import (
+	"errors"
 	r "github.com/dancannon/gorethink"
 	"github.com/kelseyhightower/envconfig"
 	"strings"
@@ -10,7 +11,8 @@ import (
 
 // UserStore manages connections for persisting Users to RethinkDB
 type UserStore struct {
-	conn *r.Session
+	conn  *r.Session
+	table r.RqlTerm
 }
 
 // UserStoreConfig stores configuration from envconfig.
@@ -58,5 +60,24 @@ func NewUserStore() (*UserStore, error) {
 		return us, nil
 	}
 
+	us.table = r.Db(options["database"]).Table("users")
+
 	return us, nil
+}
+
+// Get takes an email address and returns a *User, or an error
+func (store *UserStore) Get(email string) (*User, error) {
+	u := new(User)
+
+	row, err := store.table.GetAllByIndex("email", email).RunRow(store.conn)
+	if err != nil {
+		return u, err
+	}
+	if row.IsNil() {
+		return u, errors.New("could not find a user with email \"" + email + "\"")
+	}
+
+	row.Scan(&u)
+
+	return u, nil
 }
