@@ -9,13 +9,14 @@ import (
 
 func newTestUserStore() (*UserStore, error) {
 	os.Clearenv()
-	os.Setenv("DB_DRIVER", "postgres")
-	os.Setenv("DB_ARGS", "asdf")
+	os.Setenv("DB_URL", "rethinkdb://localhost:28015/test")
+	os.Setenv("DB_POOLSIZE", "5")
 
 	return NewUserStore()
 }
 
 func TestNewUserStore(t *testing.T) {
-	_, err := newTestUserStore()
+	store, err := newTestUserStore()
 	assert.Nil(t, err)
+	assert.NotNil(t, store)
 }

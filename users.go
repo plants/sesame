@@ -3,18 +3,16 @@ package sesame
 import (
 	"bytes"
 	"errors"
-
-	"github.com/eaigner/hood"
+	"time"
 )
 
 type User struct {
-	id       hood.Id
-	Email    string   `sql:"size:250,notnull"`
-	Password Password `sql:"size:64,notnull"`
-	Salt     Salt     `sql:"size:40,notnull"`
+	Email    string   `gorethink:"email"`
+	Password Password `gorethink:"password"`
+	Salt     Salt     `gorethink:"salt"`
 
-	Created hood.Created
-	Updated hood.Updated
+	Created time.Time `gorethink:"created"`
+	Updated time.Time `gorethink:"updated"`
 }
 
 // Set a password.
