@@ -8,11 +8,12 @@ import (
 	"net/url"
 )
 
+// UserStore manages connections for persisting Users to RethinkDB
 type UserStore struct {
 	conn *r.Session
 }
 
-// Stores configuration from envconfig.
+// UserStoreConfig stores configuration from envconfig.
 //
 // - `URL`: something like rethinkdb://authkey@host:port/dbname
 // - `PoolSize`: the maximum number of connections to hold, idles at half of
@@ -22,7 +23,7 @@ type UserStoreConfig struct {
 	PoolSize int
 }
 
-// Create a new `UserStore` from the environment
+// NewUserStore creates a new `UserStore` from the environment
 func NewUserStore() (*UserStore, error) {
 	us := &UserStore{}
 

@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+// A User combines Password and Salt into an interface to validate plaintext
+// against.
 type User struct {
 	Email    string   `gorethink:"email"`
 	Password Password `gorethink:"password"`
@@ -15,7 +17,7 @@ type User struct {
 	Updated time.Time `gorethink:"updated"`
 }
 
-// Set a password.
+// SetPassword sets a new hashed password from plaintext
 func (u *User) SetPassword(plaintext []byte) error {
 	salt, err := NewSalt(20)
 	if err != nil {
@@ -33,7 +35,7 @@ func (u *User) SetPassword(plaintext []byte) error {
 	return nil
 }
 
-// Validate a password, using the stored salt for both comparisons
+// ValidatePassword validates a plaintext password against the stored hash
 func (u *User) ValidatePassword(plaintext []byte) (bool, error) {
 	hashed, err := NewPassword(u.Salt, plaintext)
 	if err != nil {
@@ -43,11 +45,12 @@ func (u *User) ValidatePassword(plaintext []byte) (bool, error) {
 	return bytes.Equal(hashed, u.Password), nil
 }
 
-// Set a password, first validating that the old password was valid.
+// ChangePassword is a convenience method to set a new password on a User if
+// and only if the original is valid.
 func (u *User) ChangePassword(original, updated []byte) error {
 	valid, err := u.ValidatePassword(original)
 	if !valid {
-		return errors.New("Invalid original password.")
+		return errors.New("invalid original password")
 	}
 	if err != nil {
 		return err

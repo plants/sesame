@@ -38,7 +38,7 @@ func TestChangePassword(t *testing.T) {
 
 	// changing the password fails for an invalid password
 	err := u.ChangePassword([]byte("invalid"), []byte("newpass"))
-	assert.Equal(t, err, errors.New("Invalid original password."))
+	assert.Equal(t, err, errors.New("invalid original password"))
 
 	// changing the password works if you pass in a valid password
 	err = u.ChangePassword([]byte("valid"), []byte("newpass"))
