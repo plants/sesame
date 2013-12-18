@@ -5,6 +5,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"testing"
+	"time"
 )
 
 func TestSetPassword(t *testing.T) {
@@ -38,9 +39,21 @@ func TestChangePassword(t *testing.T) {
 
 	// changing the password fails for an invalid password
 	err := u.ChangePassword([]byte("invalid"), []byte("newpass"))
-	assert.Equal(t, err, errors.New("Invalid original password."))
+	assert.Equal(t, err, errors.New("invalid original password"))
 
 	// changing the password works if you pass in a valid password
 	err = u.ChangePassword([]byte("valid"), []byte("newpass"))
 	assert.Nil(t, err)
+}
+
+func TestNewUser(t *testing.T) {
+	u := NewUser("test@example.com", "password")
+
+	assert.Equal(t, "test@example.com", u.Email)
+	assert.NotEqual(t, new(Password), u.Password)
+	assert.NotEqual(t, new(Salt), u.Salt)
+
+	assert.NotEqual(t, time.Time{}, u.Created)
+	assert.NotEqual(t, time.Time{}, u.Updated)
+	assert.Equal(t, u.Created, u.Updated)
 }
