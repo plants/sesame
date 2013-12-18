@@ -17,6 +17,20 @@ type User struct {
 	Updated time.Time `gorethink:"updated"`
 }
 
+// NewPassword creates a new User struct and hashes the password. Created and
+// Updated fields will be set to the time of creation.
+func NewUser(email, password string) *User {
+	u := new(User)
+	u.Email = email
+	u.SetPassword([]byte(password))
+
+	time := time.Now()
+	u.Created = time
+	u.Updated = time
+
+	return u
+}
+
 // SetPassword sets a new hashed password from plaintext
 func (u *User) SetPassword(plaintext []byte) error {
 	salt, err := NewSalt(20)
