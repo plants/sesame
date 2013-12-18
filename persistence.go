@@ -98,3 +98,15 @@ func (store *UserStore) Save(user *User) error {
 
 	return nil
 }
+
+// Delete deletes a user by email.
+func (store *UserStore) Delete(email string) error {
+	response, err := store.table.GetAllByIndex("email", email).Delete().RunWrite(store.conn)
+	if err != nil {
+		return err
+	}
+	if response.Deleted <= 0 {
+		return errors.New("no user with email \"" + email + "\" to delete")
+	}
+	return nil
+}

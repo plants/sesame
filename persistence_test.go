@@ -107,6 +107,22 @@ func (suite *UserStoreSuite) TestSaveUpdate() {
 	assert.Equal(suite.T(), "some-id", u.Id)
 }
 
+func (suite *UserStoreSuite) TestDeleteExisting() {
+	u := NewUser("delete@example.com", "password")
+	err := suite.store.Save(u)
+	if err != nil {
+		suite.T().Fatal(err)
+	}
+
+	err = suite.store.Delete(u.Email)
+	assert.Nil(suite.T(), err)
+}
+
+func (suite *UserStoreSuite) TestDeleteAbsent() {
+	err := suite.store.Delete("nope@example.com")
+	assert.Equal(suite.T(), errors.New("no user with email \"nope@example.com\" to delete"), err)
+}
+
 func TestUserStoreSuite(t *testing.T) {
 	suite.Run(t, new(UserStoreSuite))
 }
